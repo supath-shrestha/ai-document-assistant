@@ -1,26 +1,20 @@
 from fastapi import FastAPI
+
 from app.core.config import settings
+from app.core.lifespan import lifespan
+from app.api.routes.health import router as health_router
 
 app = FastAPI(
     title=settings.APP_NAME,
     description=(
-        "AI-powered document ingestion, conversational RAG and interview booking API."
+        "AI-powered document ingestion, "
+        "conversational RAG and interview booking API."
     ),
     version="1.0.0",
+    lifespan=lifespan,
 )
 
-
-@app.get("/health", tags=["Health"])
-async def health_check() -> dict[str, str]:
-    """
-    Basic application health endpoint.
-    """
-
-    return {
-        "status": "healthy",
-        "application": settings.APP_NAME,
-        "environment": settings.ENVIRONMENT,
-    }
+app.include_router(health_router)
 
 
 @app.get("/", tags=["Root"])
