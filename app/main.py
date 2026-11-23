@@ -6,6 +6,7 @@ from app.core.lifespan import lifespan
 from app.api.routes.health import router as health_router
 from app.api.routes.documents import router as documents_router
 from app.api.routes.chat import router as chat_router
+from app.api.routes.bookings import router as bookings_router
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -28,6 +29,10 @@ app.include_router(
 
 # Chat endpoint
 app.include_router(chat_router, prefix=settings.API_V1_PREFIX)
+
+
+# Booking endpoint
+app.include_router(bookings_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/", tags=["Root"])
