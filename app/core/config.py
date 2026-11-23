@@ -5,7 +5,7 @@ class Settings(BaseSettings):
     """
     Application configuration.
 
-    Values are laoded form environment variables and the .env files.
+    Values are loaded from environment variables and the .env file.
     """
 
     APP_NAME: str = "AI Document Assistant"
@@ -20,13 +20,20 @@ class Settings(BaseSettings):
 
     # Qdrant
     QDRANT_URL: str
-    QDRANT_COLLECTION: str = "documents"
+    QDRANT_COLLECTION: str = "documents_ollama"
 
-    # OpenAI
-    OPENAI_API_KEY: str | None = None
-    OPENAI_CHAT_MODEL: str = "gpt-4.1-mini"
-    OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
-    EMBEDDING_DIMENSIONS: int = 1536
+    # Ollama
+    OLLAMA_BASE_URL: str = "http://localhost:11434"
+    OLLAMA_CHAT_MODEL: str = "qwen3:4b"
+    OLLAMA_EMBEDDING_MODEL: str = "nomic-embed-text"
+
+    # Embedding configuration
+    EMBEDDING_DIMENSIONS: int = 768
+    EMBEDDING_BATCH_SIZE: int = 32
+
+    # Chunking configuration
+    CHUNK_SIZE: int = 1000
+    CHUNK_OVERLAP: int = 200
 
     # Upload configuration
     MAX_UPLOAD_SIZE_MB: int = 10
